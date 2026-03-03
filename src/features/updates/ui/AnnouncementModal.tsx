@@ -23,9 +23,21 @@ interface UpdateStep {
   points: UpdatePoint[];
 }
 
+interface UpdateSummary {
+  title?: string;
+  points: UpdatePoint[];
+}
+
+interface UpdateLabels {
+  summaryTitle?: string;
+  detailsTitle?: string;
+}
+
 interface UpdateVersion {
   version: string;
   date: string;
+  labels?: UpdateLabels;
+  summary?: UpdateSummary;
   steps: UpdateStep[];
 }
 
@@ -112,6 +124,7 @@ function renderPointText(text: string) {
 }
 
 export default function AnnouncementModal() {
+  const [viewMode, setViewMode] = useState<"summary" | "details">("summary");
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const [currentStep, setCurrentStep] = useState(0);
@@ -150,6 +163,7 @@ export default function AnnouncementModal() {
         }
 
         setRelease(targetRelease);
+        setViewMode("summary");
         setCurrentStep(0);
         setOpen(true);
       } catch {
@@ -169,13 +183,33 @@ export default function AnnouncementModal() {
   }, []);
 
   const totalSteps = release?.steps.length ?? 0;
+  const isDetailsMode = viewMode === "details";
   const isLastStep = totalSteps > 0 && currentStep === totalSteps - 1;
-  const progressPercent =
-    totalSteps > 0 ? Math.round(((currentStep + 1) / totalSteps) * 100) : 0;
+  const progressPercent = isDetailsMode
+    ? totalSteps > 0
+      ? Math.round(((currentStep + 1) / totalSteps) * 100)
+      : 0
+    : 0;
   const activeStep = useMemo(
     () => (release?.steps ? release.steps[currentStep] : null),
     [release, currentStep],
   );
+  const summaryPoints = useMemo(() => {
+    if (!release) {
+      return [];
+    }
+    if (Array.isArray(release.summary?.points) && release.summary.points.length > 0) {
+      return release.summary.points;
+    }
+
+    return release.steps
+      .flatMap((step) => step.points)
+      .slice(0, 4);
+  }, [release]);
+  const summaryTitle = release?.summary?.title?.trim() || "Quick Highlights";
+  const summaryHeaderTitle = release?.labels?.summaryTitle?.trim() || "What is new";
+  const detailsHeaderTitle =
+    release?.labels?.detailsTitle?.trim() || "Update Details";
 
   function closeModal() {
     if (CURRENT_VERSION) {
@@ -218,11 +252,20 @@ export default function AnnouncementModal() {
     setCurrentStep((value) => Math.max(value - 1, 0));
   }
 
-  if (!open || !release || !activeStep || loading) {
+  if (
+    !open ||
+    !release ||
+    (isDetailsMode && !activeStep) ||
+    (viewMode === "summary" && summaryPoints.length === 0) ||
+    loading
+  ) {
     return null;
   }
 
-  const resolvedImagePath = resolveImagePath(activeStep.image, UPDATES_URL);
+  const resolvedImagePath =
+    isDetailsMode && activeStep
+      ? resolveImagePath(activeStep.image, UPDATES_URL)
+      : null;
 
   return (
     <div className="updates-modal-backdrop" role="presentation" onClick={closeModal}>
@@ -233,12 +276,14 @@ export default function AnnouncementModal() {
         aria-labelledby="updates-modal-title"
         onClick={(event) => event.stopPropagation()}
       >
-        <div className="updates-modal-progress">
-          <div
-            className="updates-modal-progress-bar"
-            style={{ width: `${progressPercent}%` }}
-          />
-        </div>
+        {isDetailsMode ? (
+          <div className="updates-modal-progress">
+            <div
+              className="updates-modal-progress-bar"
+              style={{ width: `${progressPercent}%` }}
+            />
+          </div>
+        ) : null}
 
         <button
           type="button"
@@ -251,16 +296,19 @@ export default function AnnouncementModal() {
 
         <header className="updates-modal-header">
           <span className="updates-version-badge">Version {release.version}</span>
-          <h2 id="updates-modal-title">What&apos;s New</h2>
+          <h2 id="updates-modal-title">
+            {isDetailsMode ? detailsHeaderTitle : summaryHeaderTitle}
+          </h2>
           <p className="updates-released-on">
             Released on {toDisplayDate(release.date)}
           </p>
         </header>
 
         <div className="updates-modal-content">
-          <h3>{activeStep.title}</h3>
+          <h3>{isDetailsMode ? activeStep?.title : summaryTitle}</h3>
           <ul className="updates-points">
-            {activeStep.points.map((point, index) => {
+            {(isDetailsMode && activeStep ? activeStep.points : summaryPoints).map(
+              (point, index) => {
               const category = categoryConfig[point.type] ?? categoryConfig.improved;
 
               return (
@@ -277,9 +325,10 @@ export default function AnnouncementModal() {
                   </div>
                 </li>
               );
-            })}
+            },
+            )}
           </ul>
-          {resolvedImagePath ? (
+          {isDetailsMode && resolvedImagePath ? (
             <img
               className="updates-step-image"
               src={resolvedImagePath}
@@ -291,12 +340,33 @@ export default function AnnouncementModal() {
         <footer className="updates-modal-footer">
           <div className="updates-footer-row">
             <div className="updates-actions">
-              <button type="button" onClick={handleBack} disabled={currentStep === 0}>
-                Back
-              </button>
-              <button type="button" className="updates-next-button" onClick={handleNext}>
-                {isLastStep ? "Finish" : "Next"}
-              </button>
+              {isDetailsMode ? (
+                <>
+                  <button type="button" onClick={handleBack} disabled={currentStep === 0}>
+                    Back
+                  </button>
+                  <button
+                    type="button"
+                    className="updates-next-button"
+                    onClick={handleNext}
+                  >
+                    {isLastStep ? "Finish" : "Next"}
+                  </button>
+                </>
+              ) : (
+                <>
+                  <button
+                    type="button"
+                    className="updates-next-button"
+                    onClick={() => setViewMode("details")}
+                  >
+                    Show all details
+                  </button>
+                  <button type="button" className="updates-okay-button" onClick={closeModal}>
+                    Okay, got it
+                  </button>
+                </>
+              )}
             </div>
           </div>
         </footer>

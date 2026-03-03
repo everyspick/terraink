@@ -267,6 +267,11 @@
   background: rgba(59, 177, 131, 0.22) !important;
 }
 
+.updates-okay-button {
+  border-color: rgba(121, 188, 255, 0.52) !important;
+  background: rgba(70, 137, 189, 0.22) !important;
+}
+
 @media (max-width: 720px) {
   .updates-modal-header,
   .updates-modal-content,

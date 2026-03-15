@@ -308,6 +308,26 @@
     box-shadow: none;
   }
 
+  /* Accordion: hide headers on mobile (tabs handle navigation) */
+  .accordion-header {
+    display: none;
+  }
+
+  /* Always expand accordion bodies on mobile */
+  .accordion-body {
+    grid-template-rows: 1fr;
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .accordion-body-inner {
+    padding: 0;
+  }
+
+  .accordion-item {
+    border-bottom: none;
+  }
+
   /* ────────────────────────────────────
      Shell layout
      ──────────────────────────────────── */

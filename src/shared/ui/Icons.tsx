@@ -32,3 +32,4 @@ export { FiDownloadCloud as ExportIcon } from "react-icons/fi";
 export { FiInfo as InfoIcon } from "react-icons/fi";
 export { FiLayers as LayersIcon } from "react-icons/fi";
 export { BsPinMap as MarkersIcon } from "react-icons/bs";
+export { FiChevronDown as ChevronDownIcon } from "react-icons/fi";

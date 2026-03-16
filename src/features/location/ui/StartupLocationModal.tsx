@@ -25,7 +25,13 @@ interface PendingLocation {
   continent: string;
 }
 
-export default function StartupLocationModal() {
+interface StartupLocationModalProps {
+  onComplete?: () => void;
+}
+
+export default function StartupLocationModal({
+  onComplete,
+}: StartupLocationModalProps) {
   const { dispatch } = usePosterContext();
   const [isOpen, setIsOpen] = useState(true);
   const [isClosing, setIsClosing] = useState(false);
@@ -41,7 +47,10 @@ export default function StartupLocationModal() {
 
   const closeModal = () => {
     setIsClosing(true);
-    window.setTimeout(() => setIsOpen(false), CLOSE_ANIMATION_MS);
+    window.setTimeout(() => {
+      setIsOpen(false);
+      onComplete?.();
+    }, CLOSE_ANIMATION_MS);
   };
 
   const applyResolvedLocation = (location: PendingLocation | null) => {

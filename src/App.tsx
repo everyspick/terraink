@@ -12,6 +12,7 @@ import DesktopExportFab from "@/features/export/ui/DesktopExportFab";
 import MobileExportFab from "@/features/export/ui/MobileExportFab";
 import DesktopLocationBar from "@/shared/ui/DesktopLocationBar";
 import StartupLocationModal from "@/features/location/ui/StartupLocationModal";
+import MobileInstallNudgeModal from "@/features/install/ui/MobileInstallNudgeModal";
 import { useSwipeDown } from "@/shared/hooks/useSwipeDown";
 
 function SettingsDrawer({
@@ -65,6 +66,8 @@ function AppShell() {
   const [desktopLocationRowVisible, setDesktopLocationRowVisible] =
     useState(true);
   const [aboutOpen, setAboutOpen] = useState(false);
+  const [startupFinished, setStartupFinished] = useState(false);
+  const [installNudgeOpen, setInstallNudgeOpen] = useState(false);
 
   const handleMobileTabChange = (tab: MobileTab) => {
     if (tab === "location") {
@@ -97,7 +100,16 @@ function AppShell() {
       data-desktop-tab={desktopTab}
     >
       <GeneralHeader onAboutOpen={() => setAboutOpen(true)} />
-      <StartupLocationModal />
+      <StartupLocationModal
+        onComplete={() => {
+          setStartupFinished(true);
+          setInstallNudgeOpen(true);
+        }}
+      />
+      <MobileInstallNudgeModal
+        open={startupFinished && installNudgeOpen}
+        onClose={() => setInstallNudgeOpen(false)}
+      />
 
       <DesktopNavBar
         activeTab={desktopTab}

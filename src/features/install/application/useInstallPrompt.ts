@@ -36,8 +36,23 @@ export default function useInstallPrompt() {
   const [showIosHint, setShowIosHint] = useState(false);
   const [showAndroidHint, setShowAndroidHint] = useState(false);
   const [dismissed, setDismissed] = useState(false);
+  const [beforeInstallPromptFired, setBeforeInstallPromptFired] =
+    useState(false);
+  const [promptOutcome, setPromptOutcome] = useState<
+    "accepted" | "dismissed" | "failed" | null
+  >(null);
+  const [swControlled, setSwControlled] = useState(false);
+  const [swReady, setSwReady] = useState(false);
 
   useEffect(() => {
+    setBeforeInstallPromptFired(Boolean(window.__terrainkDeferredInstallPrompt));
+    setSwControlled(Boolean(navigator.serviceWorker?.controller));
+    if (navigator.serviceWorker?.ready) {
+      void navigator.serviceWorker.ready
+        .then(() => setSwReady(true))
+        .catch(() => setSwReady(false));
+    }
+
     if (isInStandaloneMode()) return;
 
     const dismissedTs = localStorage.getItem(INSTALL_DISMISS_KEY);
@@ -60,6 +75,7 @@ export default function useInstallPrompt() {
     const handler = (e: Event) => {
       e.preventDefault();
       setDeferredPrompt(e as BeforeInstallPromptEvent);
+      setBeforeInstallPromptFired(true);
       setShowAndroidHint(false);
       window.__terrainkDeferredInstallPrompt = e;
     };
@@ -100,13 +116,32 @@ export default function useInstallPrompt() {
       if (outcome === "accepted") {
         setDeferredPrompt(null);
         setShowAndroidHint(false);
+        setPromptOutcome("accepted");
       } else {
         setShowAndroidHint(true);
+        setPromptOutcome("dismissed");
       }
     } catch {
       setShowAndroidHint(true);
+      setPromptOutcome("failed");
     }
   }
+
+  const diagnostics = {
+    timestamp: new Date().toISOString(),
+    userAgent: navigator.userAgent,
+    isSecureContext,
+    isIos: isIos(),
+    isAndroid: isAndroid(),
+    isStandaloneMode: isInStandaloneMode(),
+    deferredPromptAvailable: Boolean(deferredPrompt),
+    deferredPromptCached: Boolean(window.__terrainkDeferredInstallPrompt),
+    beforeInstallPromptFired,
+    promptOutcome,
+    swControlled,
+    swReady,
+    dismissed,
+  } as const;
 
   return {
     deferredPrompt,
@@ -115,5 +150,6 @@ export default function useInstallPrompt() {
     dismissed,
     dismiss,
     handleInstall,
+    diagnostics,
   } as const;
 }

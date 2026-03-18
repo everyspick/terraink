@@ -109,6 +109,13 @@
   line-height: 1.5;
 }
 
+pre.install-help-modal-text {
+  white-space: pre-wrap;
+  word-break: break-word;
+  max-height: 52vh;
+  overflow: auto;
+}
+
 .install-help-steps {
   margin: 0;
   padding: 0;

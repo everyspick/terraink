@@ -150,23 +150,28 @@ export default function AnnouncementModal() {
       return;
     }
 
-    let cancelled = false;
+    const controller = new AbortController();
 
     async function loadUpdates() {
       try {
         setLoading(true);
-        const response = await fetch(UPDATES_URL, { cache: "no-store" });
+        const response = await fetch(UPDATES_URL, {
+          cache: "no-store",
+          signal: controller.signal,
+        });
         if (!response.ok) {
           return;
         }
 
-        const data = (await response.json()) as UpdateVersion[];
+        const data: unknown = await response.json();
         if (!Array.isArray(data)) {
           return;
         }
 
-        const targetRelease = data.find((item) => item.version === CURRENT_VERSION);
-        if (!targetRelease || !Array.isArray(targetRelease.steps) || cancelled) {
+        const targetRelease = (data as UpdateVersion[]).find(
+          (item) => item.version === CURRENT_VERSION,
+        );
+        if (!targetRelease || !Array.isArray(targetRelease.steps)) {
           return;
         }
 
@@ -177,7 +182,7 @@ export default function AnnouncementModal() {
       } catch {
         // Silent fail: modal remains hidden if updates URL is unavailable.
       } finally {
-        if (!cancelled) {
+        if (!controller.signal.aborted) {
           setLoading(false);
         }
       }
@@ -186,7 +191,7 @@ export default function AnnouncementModal() {
     loadUpdates();
 
     return () => {
-      cancelled = true;
+      controller.abort();
     };
   }, []);
 

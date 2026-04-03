@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { localStorageCache } from "@/core/cache/localStorageCache";
+import { isNativePlatform } from "@/core/platform";
 import {
   BeforeInstallPromptEvent,
   INSTALL_DISMISS_KEY,
@@ -46,6 +47,8 @@ export default function useInstallPrompt() {
   const [swReady, setSwReady] = useState(false);
 
   useEffect(() => {
+    if (isNativePlatform()) return;
+
     setBeforeInstallPromptFired(Boolean(window.__terrainkDeferredInstallPrompt));
     setSwControlled(Boolean(navigator.serviceWorker?.controller));
     if (navigator.serviceWorker?.ready) {

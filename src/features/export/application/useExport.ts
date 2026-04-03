@@ -125,7 +125,7 @@ export function useExport() {
             form.theme,
             "svg",
           );
-          triggerDownloadBlob(svgBlob, svgFilename);
+          await triggerDownloadBlob(svgBlob, svgFilename);
           registerSuccessfulExport();
           dispatch({ type: "SET_EXPORT_STATUS", exporting: false });
           return;
@@ -174,10 +174,10 @@ export function useExport() {
             widthCm,
             heightCm,
           });
-          triggerDownloadBlob(pdfBlob, filename);
+          await triggerDownloadBlob(pdfBlob, filename);
         } else {
           const pngBlob = await createPngBlob(canvas, dpi);
-          triggerDownloadBlob(pngBlob, filename);
+          await triggerDownloadBlob(pngBlob, filename);
         }
 
         registerSuccessfulExport();

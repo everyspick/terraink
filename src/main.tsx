@@ -1,5 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
+import { isNativePlatform } from "@/core/platform";
 import App from "./App";
 import "./styles/index.css";
 
@@ -23,7 +24,7 @@ if (typeof displayModeQuery.addEventListener === "function") {
   displayModeQuery.onchange = syncDisplayMode;
 }
 
-if ("serviceWorker" in navigator) {
+if ("serviceWorker" in navigator && !isNativePlatform()) {
   window.addEventListener("load", () => {
     navigator.serviceWorker.register("/sw.js").catch((error) => {
       console.warn("Service worker registration failed", error);

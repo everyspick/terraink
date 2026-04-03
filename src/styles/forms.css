@@ -456,7 +456,7 @@ button.location-current-btn {
   padding: 0;
   border: 1px solid var(--border);
   border-radius: 10px;
-  background: rgba(20, 38, 52, 0.94);
+  background: var(--item-bg);
   color: #d9e7f2;
   font-size: 0.72rem;
   font-weight: 700;
@@ -709,7 +709,7 @@ button.theme-customize-btn {
   padding: 0;
   border: 1px solid rgba(151, 183, 207, 0.42);
   border-radius: 10px;
-  background: rgba(20, 38, 52, 0.94);
+  background: var(--item-bg);
   color: #d9e7f2;
   font-size: 0.72rem;
   font-weight: 700;
@@ -769,7 +769,7 @@ button.theme-edit-done-btn:not(:disabled):hover,
 button.theme-edit-done-btn:focus-visible {
   transform: none;
   filter: none;
-  border-color: rgba(112, 184, 222, 0.82);
+  border-color: var(--focus-ring);
   background: rgba(44, 78, 102, 0.98);
 }
 
@@ -825,7 +825,7 @@ button.color-editor-target {
 }
 
 button.color-editor-target.is-active {
-  border-color: rgba(112, 184, 222, 0.82);
+  border-color: var(--focus-ring);
   box-shadow: 0 0 0 2px rgba(75, 149, 186, 0.24);
 }
 
@@ -833,8 +833,8 @@ button.color-editor-target:not(:disabled):hover,
 button.color-editor-target:focus-visible {
   transform: none;
   filter: none;
-  border-color: rgba(112, 184, 222, 0.82);
-  background: rgba(20, 38, 52, 0.94);
+  border-color: var(--focus-ring);
+  background: var(--item-bg);
 }
 
 .color-editor-target-swatch {
@@ -1066,7 +1066,7 @@ button.color-editor-target:focus-visible {
 .layout-card.is-selected {
   border-color: rgba(112, 184, 222, 0.8);
   box-shadow: 0 0 0 2px rgba(75, 149, 186, 0.22);
-  background: rgba(20, 38, 52, 0.94);
+  background: var(--item-bg);
 }
 
 .layout-card:not(.is-selected):not(:disabled):hover,
@@ -1169,7 +1169,7 @@ button.picker-modal-close {
   padding: 0;
   border: 1px solid rgba(151, 183, 207, 0.42);
   border-radius: 999px;
-  background: rgba(20, 38, 52, 0.94);
+  background: var(--item-bg);
   color: #d8e8f4;
   font-size: 0.8rem;
   line-height: 1;
@@ -1229,7 +1229,7 @@ button.picker-modal-close:focus-visible {
 
 button.picker-modal-done {
   border: 1px solid rgba(151, 183, 207, 0.42);
-  background: rgba(20, 38, 52, 0.94);
+  background: var(--item-bg);
   color: #e6f2fb;
   padding: 8px 12px;
 }
@@ -1272,7 +1272,7 @@ button.palette-color-item:focus-visible {
   transform: none;
   filter: none;
   border-color: rgba(112, 184, 222, 0.78);
-  background: rgba(20, 38, 52, 0.94);
+  background: var(--item-bg);
 }
 
 .palette-color-swatch {
@@ -1361,7 +1361,7 @@ button.color-grid-action {
 }
 
 button.color-grid-action.is-active {
-  border-color: rgba(112, 184, 222, 0.82);
+  border-color: var(--focus-ring);
   background: rgba(45, 78, 102, 0.98);
 }
 
@@ -1369,7 +1369,7 @@ button.color-grid-action:not(:disabled):hover,
 button.color-grid-action:focus-visible {
   transform: none;
   filter: none;
-  border-color: rgba(112, 184, 222, 0.82);
+  border-color: var(--focus-ring);
   background: rgba(45, 78, 102, 0.98);
 }
 
@@ -1611,7 +1611,7 @@ button.marker-info-btn:focus-visible {
 }
 
 .marker-mobile-card.is-selected {
-  border-color: rgba(112, 184, 222, 0.82);
+  border-color: var(--focus-ring);
   box-shadow: 0 0 0 2px rgba(75, 149, 186, 0.2);
 }
 
@@ -1753,7 +1753,7 @@ button.marker-delete-modal__cancel {
   padding: 8px 12px;
   border: 1px solid rgba(151, 183, 207, 0.42);
   border-radius: 9px;
-  background: rgba(20, 38, 52, 0.94);
+  background: var(--item-bg);
   color: #e8f3fb;
 }
 
@@ -1761,7 +1761,7 @@ button.marker-delete-modal__cancel:not(:disabled):hover,
 button.marker-delete-modal__cancel:focus-visible {
   transform: none;
   filter: none;
-  border-color: rgba(112, 184, 222, 0.82);
+  border-color: var(--focus-ring);
   background: rgba(44, 78, 102, 0.98);
 }
 
@@ -1866,7 +1866,7 @@ button.marker-settings-card__reset-btn {
 }
 
 .marker-header-action-btn.is-active {
-  border-color: rgba(112, 184, 222, 0.82);
+  border-color: var(--focus-ring);
   background: rgba(42, 72, 93, 0.95);
 }
 
@@ -2110,7 +2110,7 @@ button.marker-color-edit-btn:not(:disabled):hover,
 button.marker-color-edit-btn:focus-visible {
   transform: none;
   filter: none;
-  border-color: rgba(112, 184, 222, 0.82);
+  border-color: var(--focus-ring);
   background: rgba(42, 72, 93, 0.95);
 }
 
@@ -2191,7 +2191,7 @@ button.marker-picker__option--toggle {
 }
 
 button.marker-picker__option.is-selected {
-  border-color: rgba(112, 184, 222, 0.82);
+  border-color: var(--focus-ring);
   box-shadow: 0 0 0 2px rgba(75, 149, 186, 0.22);
 }
 

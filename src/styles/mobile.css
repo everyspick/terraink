@@ -71,7 +71,7 @@
     min-width: 0;
     height: 60px;
     border-radius: 26px;
-    background: rgba(9, 16, 24, 0.97);
+    background: var(--overlay-bg);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
     border: 1px solid rgba(146, 176, 200, 0.14);
@@ -192,7 +192,7 @@
     justify-content: center;
     border: 1px solid rgba(146, 176, 200, 0.14);
     border-radius: 20px;
-    background: rgba(9, 16, 24, 0.97);
+    background: var(--overlay-bg);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
     box-shadow:
@@ -696,7 +696,7 @@
   .mobile-drawer-sheet {
     position: relative;
     z-index: 1;
-    background: rgba(11, 20, 30, 0.98);
+    background: var(--sheet-bg);
     border-top: 1px solid rgba(146, 176, 200, 0.16);
     border-radius: 24px 24px 0 0;
     padding-bottom: env(safe-area-inset-bottom, 0px);
@@ -780,17 +780,17 @@
     padding: 0;
     border: none;
     border-radius: 0;
-    background: rgba(11, 20, 30, 0.98);
+    background: var(--sheet-bg);
     box-shadow: none;
   }
 
   .mobile-drawer-content .accordion-item,
   .mobile-drawer-content .accordion-body {
-    background: rgba(11, 20, 30, 0.98);
+    background: var(--sheet-bg);
   }
 
   .mobile-drawer-content .map-dimension-fields {
-    background: rgba(11, 20, 30, 0.98);
+    background: var(--sheet-bg);
   }
 
   .mobile-drawer-content .panel-block h2 {
@@ -844,7 +844,7 @@
     margin-bottom: 0;
     position: relative;
     z-index: 35;
-    background: rgba(9, 16, 24, 0.97);
+    background: var(--overlay-bg);
     border-bottom: 1px solid rgba(146, 176, 200, 0.12);
     box-shadow: 0 1px 8px rgba(0, 0, 0, 0.28);
   }
@@ -1081,7 +1081,7 @@
     padding: 4px;
     border: 1px solid rgba(146, 176, 200, 0.18);
     border-radius: 10px;
-    background: rgba(9, 16, 24, 0.97);
+    background: var(--overlay-bg);
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.42);
     max-height: 220px;
     overflow-y: auto;
@@ -1365,7 +1365,7 @@
     padding: 14px;
     border: 1px solid var(--line);
     border-radius: 14px;
-    background: rgba(11, 20, 30, 0.98);
+    background: var(--sheet-bg);
     box-shadow:
       0 8px 20px rgba(0, 0, 0, 0.28),
       inset 0 1px 0 rgba(255, 255, 255, 0.04);
@@ -1495,7 +1495,7 @@
     overflow-y: auto;
     border: 1px solid rgba(146, 176, 200, 0.2);
     border-radius: 16px;
-    background: rgba(11, 20, 30, 0.98);
+    background: var(--sheet-bg);
     box-shadow: 0 24px 48px rgba(0, 0, 0, 0.55);
     padding: 20px 16px 16px;
   }

@@ -8,6 +8,10 @@
   --strong-line: rgba(166, 199, 223, 0.45);
   --positive: #6bd8a0;
   --negative: #ff8372;
+  --focus-ring: rgba(112, 184, 222, 0.82);
+  --item-bg: rgba(20, 38, 52, 0.94);
+  --sheet-bg: rgba(11, 20, 30, 0.98);
+  --overlay-bg: rgba(9, 16, 24, 0.97);
 }
 
 *,

@@ -1,5 +1,5 @@
 import { useCallback, useRef, useState } from "react";
-import { usePosterContext } from "@/features/poster/ui/PosterContext";
+import { usePosterDispatch } from "@/features/poster/ui/PosterContext";
 import { reverseGeocodeCoordinates } from "@/core/services";
 import { DEFAULT_DISTANCE_METERS } from "@/core/config";
 import { GEOLOCATION_TIMEOUT_MS } from "@/features/map/infrastructure";
@@ -18,7 +18,7 @@ interface UseCurrentLocationReturn {
 export function useCurrentLocation(
   flyToLocation: (lat: number, lon: number) => void,
 ): UseCurrentLocationReturn {
-  const { dispatch } = usePosterContext();
+  const { dispatch } = usePosterDispatch();
   const [isLocatingUser, setIsLocatingUser] = useState(false);
   const isLocatingRef = useRef(false);
   const [locationPermissionMessage, setLocationPermissionMessage] =

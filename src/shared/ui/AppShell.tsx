@@ -96,8 +96,8 @@ export default function AppShell() {
       return () => window.cancelIdleCallback(idleId);
     }
 
-    const timer = window.setTimeout(preload, 300);
-    return () => window.clearTimeout(timer);
+    const timer = setTimeout(preload, 300);
+    return () => clearTimeout(timer);
   }, []);
 
   useEffect(() => {
@@ -280,16 +280,12 @@ export default function AppShell() {
         onTabChange={handleMobileTabChange}
       />
       <Suspense fallback={null}>
-        <MobileExportFab />
+        {isMobileViewport ? <MobileExportFab /> : <DesktopExportFab />}
       </Suspense>
 
       <FooterNote />
       <Suspense fallback={null}>
         <AnnouncementModal />
-      </Suspense>
-
-      <Suspense fallback={null}>
-        <DesktopExportFab />
       </Suspense>
       {aboutOpen ? (
         <Suspense fallback={null}>

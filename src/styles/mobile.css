@@ -656,6 +656,15 @@
     height: 24px;
   }
 
+  .mobile-export-option-icon.is-spinning {
+    animation: mobile-export-spin 0.9s linear infinite;
+  }
+
+  @keyframes mobile-export-spin {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+  }
+
   /* ────────────────────────────────────
      Info drawer (bottom sheet)
      ──────────────────────────────────── */

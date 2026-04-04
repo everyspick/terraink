@@ -19,10 +19,11 @@ export default function MobileExportFab() {
   const [isTriggerVisible, setIsTriggerVisible] = useState(true);
 
   useEffect(() => {
-    if (!isExporting) {
+    if (!isExporting && activeFormat) {
       setActiveFormat(null);
+      setIsOpen(false);
     }
-  }, [isExporting]);
+  }, [isExporting, activeFormat]);
 
   useEffect(() => {
     const FOOTER_OVERLAP_THRESHOLD_PX = 140;
@@ -46,7 +47,6 @@ export default function MobileExportFab() {
 
   const runExport = (format: ExportFormat) => {
     setActiveFormat(format);
-    setIsOpen(false);
     if (format === "png") {
       void handleDownloadPng();
       return;
@@ -79,7 +79,7 @@ export default function MobileExportFab() {
         <div
           className="mobile-export-modal-backdrop"
           role="presentation"
-          onClick={() => setIsOpen(false)}
+          onClick={() => !isExporting && setIsOpen(false)}
         >
           <div
             className="mobile-export-modal"
@@ -93,7 +93,7 @@ export default function MobileExportFab() {
               <button
                 type="button"
                 className="mobile-export-modal-close"
-                onClick={() => setIsOpen(false)}
+                onClick={() => !isExporting && setIsOpen(false)}
                 aria-label="Close export options"
               >
                 <CloseIcon />

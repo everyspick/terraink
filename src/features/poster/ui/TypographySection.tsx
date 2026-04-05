@@ -1,5 +1,4 @@
-import { useEffect, useState } from "react";
-import { createPortal } from "react-dom";
+import { useEffect } from "react";
 import { ensureGoogleFont } from "@/core/services";
 import type { PosterForm } from "@/features/poster/application/posterReducer";
 import type { FontOption } from "@/core/config";
@@ -14,64 +13,14 @@ interface TypographySectionProps {
     event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
   ) => void;
   fontOptions: FontOption[];
-  onCreditsChange: (value: boolean) => void;
 }
 
-function CreditsRemovalModal({
-  onKeep,
-  onRemove,
-}: {
-  onKeep: () => void;
-  onRemove: () => void;
-}) {
-  return createPortal(
-    <div className="picker-modal-backdrop" role="presentation" onClick={onKeep}>
-      <div
-        className="picker-modal credits-confirm-modal"
-        role="alertdialog"
-        aria-modal="true"
-        aria-labelledby="credits-modal-title"
-        onClick={(e) => e.stopPropagation()}
-      >
-        <div className="credits-modal__body">
-          <p className="credits-modal__headline" id="credits-modal-title">
-            ✨ Wait! Did you know Terraink is open-source?
-          </p>
-          <p className="credits-modal__text">
-            Keeping the credit visible helps more people find this tool and
-            allows me to keep it <strong>100% free</strong> and client-side.
-          </p>
-          <div className="credits-modal__actions">
-            <button
-              type="button"
-              className="credits-modal__keep"
-              onClick={onKeep}
-            >
-              <span className="heart">❤︎</span> Keep Credits
-            </button>
-            <button
-              type="button"
-              className="credits-modal__remove"
-              onClick={onRemove}
-            >
-              Remove Anyway
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>,
-    document.body,
-  );
-}
 
 export default function TypographySection({
   form,
   onChange,
   fontOptions,
-  onCreditsChange,
 }: TypographySectionProps) {
-  const [includeCreditsModal, setIncludeCreditsModal] = useState(false);
-
   useEffect(() => {
     const families = fontOptions
       .map((option) => String(option.value || "").trim())
@@ -80,31 +29,8 @@ export default function TypographySection({
     void Promise.allSettled(families.map((family) => ensureGoogleFont(family)));
   }, [fontOptions]);
 
-  function handleCreditsToggle(e: React.ChangeEvent<HTMLInputElement>) {
-    if (!e.target.checked) {
-      setIncludeCreditsModal(true);
-    } else {
-      onCreditsChange(true);
-    }
-  }
-
-  function handleKeepCredits() {
-    setIncludeCreditsModal(false);
-  }
-
-  function handleRemoveCredits() {
-    setIncludeCreditsModal(false);
-    onCreditsChange(false);
-  }
-
   return (
     <>
-      {includeCreditsModal && (
-        <CreditsRemovalModal
-          onKeep={handleKeepCredits}
-          onRemove={handleRemoveCredits}
-        />
-      )}
       <section className="panel-block">
         <p className="section-summary-label">STYLE</p>
         <label className="toggle-field">
@@ -178,22 +104,6 @@ export default function TypographySection({
           </select>
         </label>
 
-        <label className="toggle-field credits-toggle-field">
-          <span>Include Credits</span>
-          <span className="theme-switch">
-            <input
-              type="checkbox"
-              name="includeCredits"
-              checked={Boolean(form.includeCredits)}
-              onChange={handleCreditsToggle}
-            />
-            <span className="theme-switch-track" aria-hidden="true" />
-          </span>
-        </label>
-        <p className="credits-hint">
-          Keep this enabled to help others discover this open-source project and
-          support future updates!
-        </p>
       </section>
     </>
   );

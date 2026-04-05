@@ -279,7 +279,6 @@ export default function SettingsPanel({
                 form={state.form}
                 onChange={handleChange}
                 fontOptions={FONT_OPTIONS}
-                onCreditsChange={handleCreditsChange}
               />
             ) : null}
           </div>

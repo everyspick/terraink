@@ -378,21 +378,10 @@ export default function PreviewPanel() {
       <div className="poster-viewport">
         {/* Desktop ghost layer: canvas clone of the main map at reduced opacity */}
         <div className="poster-ghost-layer" aria-hidden="true">
-          <div style={{ overflow: "hidden", width: "100%", height: "100%" }}>
-            <div
-              style={{
-                width: `${overzoomScale * 100}%`,
-                height: `${overzoomScale * 100}%`,
-                transform: `scale(${1 / overzoomScale})`,
-                transformOrigin: "top left",
-              }}
-            >
-              <canvas
-                ref={ghostCanvasRef}
-                style={{ width: "100%", height: "100%", display: "block" }}
-              />
-            </div>
-          </div>
+          <canvas
+            ref={ghostCanvasRef}
+            className="poster-ghost-canvas"
+          />
         </div>
         <div className="desktop-layout-label" aria-hidden="true">
           {layoutLabel}
@@ -482,12 +471,16 @@ export default function PreviewPanel() {
                       className={`map-control-btn${isRotationEnabled ? " is-active" : ""}`}
                       onClick={handleToggleRotation}
                       title={
-                        isRotationEnabled ? "Disable rotation" : "Enable rotation"
+                        isRotationEnabled
+                          ? "Disable rotation"
+                          : "Enable rotation"
                       }
                     >
                       <RotateIcon />
                       <span>
-                        {isRotationEnabled ? "Disable Rotation" : "Enable Rotation"}
+                        {isRotationEnabled
+                          ? "Disable Rotation"
+                          : "Enable Rotation"}
                       </span>
                     </button>
                   ) : null}
@@ -499,12 +492,16 @@ export default function PreviewPanel() {
                       className={`map-control-btn${isRotationEnabled ? " is-active" : ""}`}
                       onClick={handleToggleRotation}
                       title={
-                        isRotationEnabled ? "Disable rotation" : "Enable rotation"
+                        isRotationEnabled
+                          ? "Disable rotation"
+                          : "Enable rotation"
                       }
                     >
                       <RotateIcon />
                       <span>
-                        {isRotationEnabled ? "Disable Rotation" : "Enable Rotation"}
+                        {isRotationEnabled
+                          ? "Disable Rotation"
+                          : "Enable Rotation"}
                       </span>
                     </button>
                   </div>

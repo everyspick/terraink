@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { useExport } from "@/features/export/application/useExport";
 import type { ExportFormat } from "@/features/export/domain/types";
 import { CloseIcon, DownloadIcon, LoaderIcon } from "@/shared/ui/Icons";
-import SupportModal from "@/features/export/ui/SupportModal";
 import SocialLinkGroup from "@/shared/ui/SocialLinkGroup";
 
 const FORMAT_OPTIONS: { format: ExportFormat; label: string }[] = [
@@ -16,8 +15,7 @@ interface ExportFabProps {
 }
 
 export default function ExportFab({ isMobile }: ExportFabProps) {
-  const { isExporting, exportPoster, supportPrompt, dismissSupportPrompt } =
-    useExport();
+  const { isExporting, exportPoster } = useExport();
   const [isOpen, setIsOpen] = useState(false);
   const [activeFormat, setActiveFormat] = useState<ExportFormat | null>(null);
   const [isTriggerVisible, setIsTriggerVisible] = useState(true);
@@ -123,14 +121,6 @@ export default function ExportFab({ isMobile }: ExportFabProps) {
             <SocialLinkGroup variant="mobile-export" />
           </div>
         </div>
-      ) : null}
-
-      {supportPrompt ? (
-        <SupportModal
-          posterNumber={supportPrompt.posterNumber}
-          onClose={dismissSupportPrompt}
-          titleId="export-fab-support-modal-title"
-        />
       ) : null}
     </>
   );

@@ -77,43 +77,9 @@ Never call `fetch()`, `localStorage`, or external APIs directly — always go th
 
 ## Environment Variables
 
-All `VITE_*` vars are accessed **only** through `src/core/config.ts`. Never read `import.meta.env.*` anywhere else. Env vars are optional for local development — never assume they are present for core functionality. See `.env.example` for the full list.
+All `VITE_*` vars are accessed **only** through `src/core/config.ts`. Never read `import.meta.env.*` anywhere else. Env vars are optional for local dev — check `config.ts` for fallback defaults.
 
-## Naming Conventions
+## Personal Notes (my fork)
 
-- Components: `PascalCase.tsx`
-- Hooks: `useCamelCase.ts`
-- Utilities / pure functions: `camelCase.ts`
-- Port interfaces: `I` prefix — `ICache`, `IHttp`, `IGeocodePort`
-- CSS classes: `kebab-case` with a matching rule in `src/styles/`
-
-## Commit Style
-
-Format: `<emoji> <type>(<scope>): <subject>`
-
-```
-🐛 fix(location): fix reverse geocode on startup
-♻️ refactor(core): simplify validation flow
-✨ feat(map): add zoom-to-fit button
-```
-
-One logical change per commit. Subject: lowercase, imperative, no trailing period, max 50 chars, full line max 72 chars.
-
-## Branch Strategy
-
-```text
-feature/fix branch → dev → beta → main
-```
-
-All PRs target `dev`. Never open PRs against `main` or `beta`.
-
-## Do Not
-
-- Add logic to `App.tsx` — it must stay a thin shell
-- Import from `@/lib/`, `@/utils/`, `@/hooks/`, or `@/components/` — those paths do not exist; use `@/shared/`
-- Duplicate utilities — check `shared/utils/` and `shared/geo/` before creating new ones
-- Call `fetch()`, `localStorage`, or `new URL()` inside components or hooks — use `core/services.ts`
-- Add a CSS class without a matching rule in `src/styles/`
-- Prop-drill state more than one level — use `usePosterContext()`
-- Read any file's exports from memory — always verify the actual source first
-- Edit `bun.lock` manually — run `bun install`
+- I'm using this primarily to generate hiking trail posters — most of my testing uses OSM tile layers
+- If the map export looks blurry, try increasing the `devicePixelRatio` override in `captureMapAsCanvas` before debugging elsewhere

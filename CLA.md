@@ -48,4 +48,3 @@ You represent and warrant that:
 
 - Each Contribution is your original creation, or you have the necessary rights to submit it under the terms of this Agreement.
 - Your Contribution does not infringe or violate any third-party intellectual property rights, including copyrights, patents, trademarks, or trade secrets.
-- If your Contribution includes work from a third party, you have obtained all necessary permissions and licenses to submit it under the terms of this Agreement.

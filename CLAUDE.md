@@ -81,5 +81,5 @@ All `VITE_*` vars are accessed **only** through `src/core/config.ts`. Never read
 
 ## Personal Notes (my fork)
 
-- I'm using this primarily to generate hiking trail posters — most of my testing uses OSM tile layers
-- If the map export looks blurry, try increasing the `devicePixelRatio` override in `captureMapAsCanvas` before debugging elsewhere
+- I'm using this primarily to learn the hexagonal architecture pattern — the `domain/` → `application/` → `infrastructure/` separation is the main thing I want to understand better.
+- Good starting point for exploration: `src/features/location/` — it's a self-contained feature with all four layers present.

@@ -72,14 +72,15 @@ Never call `fetch()`, `localStorage`, or external APIs directly — always go th
 
 - All new files: `.ts` / `.tsx`. No `.js` in `src/`.
 - `strict: false`, `allowJs: true` — gradual migration is fine
-- Use `@/` alias for all cross-feature imports — never `../../` across feature boundaries
+- Use `@/` alias for all cross-feature imports
 - Port interfaces go in `domain/ports.ts` or `core/*/ports.ts` with an `I` prefix (`ICache`, `IHttp`)
 
 ## Environment Variables
 
-All `VITE_*` vars are accessed **only** through `src/core/config.ts`. Never read `import.meta.env.*` anywhere else. Env vars are optional for local dev — check `config.ts` for fallback defaults.
+All `VITE_*` vars are accessed **only** through `src/core/config.ts`. Never read `import.meta.env.*` anywhere else. Env vars are optional for local dev — check `config.ts` for fallback values.
 
 ## Personal Notes (fork)
 
-- I'm using this primarily to learn the hexagonal architecture pattern — the `domain/` → `application/` → `infrastructure/` separation is the main thing I want to internalize.
-- Good reference for how to wire up a `useReducer`-based context without Redux overhead.
+- Forked primarily to experiment with custom map styles and marker designs
+- When testing export locally, PNG is the most reliable format — PDF rendering can be finicky with certain font/zoom combos
+- If the dev server hangs on startup, try clearing the Vite cache: `rm -rf node_modules/.vite`

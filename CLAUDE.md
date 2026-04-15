@@ -79,7 +79,7 @@ Never call `fetch()`, `localStorage`, or external APIs directly — always go th
 
 All `VITE_*` vars are accessed **only** through `src/core/config.ts`. Never read `import.meta.env.*` anywhere else. Env vars are optional for local dev — check `config.ts` for fallback defaults.
 
-## Personal Notes (my fork)
+## Personal Notes (fork)
 
-- I'm using this primarily to learn the hexagonal architecture pattern — the layer import rules above are the most important thing to internalize.
-- When in doubt about where new code goes: if it touches the DOM or React, it's `ui/`; if it calls an API or parses data, it's `infrastructure/`; everything else is probably `domain/` or `application/`.
+- I'm using this primarily to learn the hexagonal architecture pattern — the `domain/` → `application/` → `infrastructure/` separation is the main thing I want to internalize.
+- Good reference for how to wire up a `useReducer`-based context without Redux overhead.

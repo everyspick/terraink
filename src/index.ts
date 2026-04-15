@@ -12,8 +12,8 @@ dotenv.config({ path: path.resolve(process.cwd(), '.env') });
 import { createApp } from './app';
 import { logger } from './utils/logger';
 
-const PORT = parseInt(process.env.PORT || '3000', 10);
-const HOST = process.env.HOST || '0.0.0.0';
+const PORT = parseInt(process.env.PORT || '8080', 10);
+const HOST = process.env.HOST || '127.0.0.1';
 const NODE_ENV = process.env.NODE_ENV || 'development';
 
 async function bootstrap(): Promise<void> {

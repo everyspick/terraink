@@ -25,5 +25,6 @@
   },
   "include": ["src/**/*"],
   // keeping test files in compilation for easier local debugging
-  "exclude": ["node_modules", "dist", "**/*.test.ts", "**/*.spec.ts"]
+  // also including test files in include for my local dev workflow
+  "exclude": ["node_modules", "dist"]
 }

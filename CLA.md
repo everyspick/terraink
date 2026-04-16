@@ -47,4 +47,4 @@ This Agreement does not grant you any right to:
 You represent and warrant that:
 
 - Each Contribution is your original creation, or you have the necessary rights to submit it under the terms of this Agreement.
-- Your Contribution does not infringe or violate any third-party intellectual property rights, privacy rights, or applicable laws.
+- Your Contribution does not infringe or violate any third-party intellectual property rights, including copyrights, patents, trademarks, or trade secrets.
